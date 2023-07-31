@@ -22,7 +22,7 @@ class AuthProvider extends StateNotifier<CommonState> {
         await AuthService.userLogin(email: email, password: password);
     response.fold((l) {
       state = state.copyWith(
-          errText: 'l', isError: true, isLoad: false, isSuccess: false);
+          errText: l, isError: true, isLoad: false, isSuccess: false);
     },
         (r) => {
               state = state.copyWith(
@@ -38,14 +38,30 @@ class AuthProvider extends StateNotifier<CommonState> {
     state = state.copyWith(
         errText: '', isError: false, isLoad: true, isSuccess: false);
     final response =
-        await AuthService.userLogin(email: email, password: password);
+        await AuthService.userRegister(
+            email: email, password: password, username: username, image: image);
     response.fold((l) {
       state = state.copyWith(
-          errText: 'l', isError: true, isLoad: false, isSuccess: false);
+          errText: l, isError: true, isLoad: false, isSuccess: false);
     },
         (r) => {
               state = state.copyWith(
                   errText: '', isError: false, isLoad: false, isSuccess: r)
             });
   }
+  Future<void> userLogOut() async {
+    state = state.copyWith(
+        errText: '', isError: false, isLoad: true, isSuccess: false);
+    final response =
+    await AuthService.userLogOut();
+    response.fold((l) {
+      state = state.copyWith(
+          errText: l, isError: true, isLoad: false, isSuccess: false);
+    },
+            (r) => {
+          state = state.copyWith(
+              errText: '', isError: false, isLoad: false, isSuccess: r)
+        });
+  }
+
 }

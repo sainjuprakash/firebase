@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:firebase/services/auth_service.dart';
 import 'package:firebase/view/auth_page.dart';
-import 'package:firebase/view/status_page.dart';
+import 'package:firebase/view/home_page.dart';
+import 'package:firebase/status_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -39,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       //theme:ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

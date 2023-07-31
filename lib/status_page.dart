@@ -4,8 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authStream =
-    StreamProvider((ref) => FirebaseAuth.instance.authStateChanges());
+final authStream = StreamProvider((ref) => FirebaseAuth.instance.authStateChanges());
 
 class StatusPage extends StatelessWidget {
   const StatusPage({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class StatusPage extends StatelessWidget {
             if (data == null) {
               return AuthPage();
             } else {
-              return HomePage();
+              return const HomePage();
             }
           },
           error: (err, stack) => Text('$err'),

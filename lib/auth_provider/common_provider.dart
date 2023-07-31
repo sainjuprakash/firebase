@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 final loginProvider=StateNotifierProvider<LoginProvider,bool>((ref) => LoginProvider(true));
 class LoginProvider extends StateNotifier<bool>{
   LoginProvider(super.state);
@@ -6,4 +8,18 @@ class LoginProvider extends StateNotifier<bool>{
     state=!state;
   }
 
+}
+final imageProvider= StateNotifierProvider.autoDispose<ImageProvider, XFile?>((ref) => ImageProvider(null));
+
+class ImageProvider extends StateNotifier<XFile?>{
+  ImageProvider(super.state);
+
+  final ImagePicker picker= ImagePicker();
+void pickImage(bool isCamera)async{
+  if(isCamera){
+    state=await picker.pickImage(source: ImageSource.camera);
+  }else{
+    state= await picker.pickImage(source: ImageSource.gallery);
+  }
+}
 }
