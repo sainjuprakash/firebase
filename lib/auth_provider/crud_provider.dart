@@ -1,4 +1,5 @@
 import 'package:firebase/model/common_state.dart';
+import 'package:firebase/model/post.dart';
 import 'package:firebase/services/crud_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,4 +70,37 @@ class CrudProvider extends StateNotifier<CommonState> {
                   errText: '', isError: false, isLoad: false, isSuccess: r)
             });
   }
+
+  Future<void> likePost(
+      {
+        required String username,
+        required String postId,
+        required int like
+      }) async {
+    state = state.copyWith(errText: '',isError: false, isSuccess: false, isLoad: true);
+    final response = await CrudService.likePost(username: username, postId: postId, like: like);
+    response.fold((l) {
+      state = state.copyWith(errText: l,isError: true, isSuccess: false, isLoad: false);
+    }, (r) {
+      state = state.copyWith(errText: '',isError: false, isSuccess: r, isLoad: false);
+    });
+  }
+
+  Future<void> addComment(
+      {
+        required Comment comment,
+        required String postId,
+      }) async {
+    state = state.copyWith(errText: '',isError: false, isSuccess: false, isLoad: true);
+    final response = await CrudService.addComment(comment: comment, postId: postId);
+    response.fold((l) {
+      state = state.copyWith(errText: l,isError: true, isSuccess: false, isLoad: false);
+    }, (r) {
+      state = state.copyWith(errText: '',isError: false, isSuccess: r, isLoad: false);
+    });
+  }
+
 }
+
+
+

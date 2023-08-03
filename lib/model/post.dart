@@ -2,7 +2,7 @@ final post = {
   'title': 'hello title',
   'detail': 'this is detail',
   'postId': 'post id1',
-  'userId': 'usere id1',
+  'userId': '.usere id1',
   'imageId': 'Image Id',
   'imageUrl': 'Image.jpeg',
   'like': {
@@ -32,7 +32,8 @@ class Post {
       required this.imageId,
       required this.imageUrl,
       required this.like,
-      required this.comments});
+      required this.comments
+      });
 
   factory Post.FromJson(Map<String, dynamic> json) {
     return Post(
@@ -56,7 +57,9 @@ class Like {
   Like({required this.likes, required this.username});
 
   factory Like.fromJson(Map<String, dynamic> json) {
-    return Like(likes: json['likes'], username: json['username']);
+    return Like(likes: json['likes'],
+        username: (json['usernames'] as List).map((e) => e as String).toList()
+    );
   }
 }
 
@@ -73,13 +76,13 @@ class Comment {
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
         username: json['username'],
-        comment: json['comment'],
+        comment: json['comments'],
         image: json['image']);
   }
   Map toMap() {
     return {
       'username': this.username,
-      'comment': this.comment,
+      'comments': this.comment,
       'image': this.image
     };
   }

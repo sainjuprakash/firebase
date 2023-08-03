@@ -13,7 +13,7 @@ class SnackShow {
 
   static showFailure(BuildContext context,String msg) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.grey,
         duration: Duration(seconds: 3), content: Text(msg,style: TextStyle(color: Colors.white))));
 
   }

@@ -19,7 +19,7 @@ class StatusPage extends StatelessWidget {
             if (data == null) {
               return AuthPage();
             } else {
-              return const HomePage();
+              return  HomePage();
             }
           },
           error: (err, stack) => Text('$err'),

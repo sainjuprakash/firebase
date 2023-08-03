@@ -7,24 +7,26 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-final postStream = StreamProvider((ref) => CrudService.getUser());
+final postStream = StreamProvider((ref) => CrudService.getPost());
 
 class CrudService {
   static final postDb = FirebaseFirestore.instance
       .collection('posts'); //database ma folder banako
 
-  static Stream<List<Post>> getUser() {
-    return postDb.snapshots().map((document) {
+  static Stream<List<Post>> getPost() {
+    //users haru dekhauna
+    return postDb.snapshots().map((event) {
       //yah bata firebase ko  document as a list pass garxa
-      return document.docs.map((e) {
+      return event.docs.map((e) {
         //e bata main data auxa list ko form ma
         final json = e.data();
+        print("getPost json");
         print(json);
         return Post(
             title: json['title'],
             detail: json['detail'],
             postId: e.id,
-            userId: json['userId'],
+            userId: json['userID'],
             imageId: json['imageId'],
             imageUrl: json['imageUrl'],
             like: Like.fromJson(json['like']),
@@ -41,7 +43,8 @@ class CrudService {
       required String userID,
       required XFile image}) async {
     try {
-      final ref = FirebaseStorage.instance.ref().child('postImage/${image.name}');
+      final ref =
+          FirebaseStorage.instance.ref().child('postImage/${image.name}');
       await ref.putFile(File(image.path));
       final url = await ref.getDownloadURL();
 
