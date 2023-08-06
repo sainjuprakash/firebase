@@ -5,6 +5,7 @@ import 'package:firebase/services/crud_service.dart';
 import 'package:firebase/view/create_post.dart';
 import 'package:firebase/view/detail_page.dart';
 import 'package:firebase/view/update_page.dart';
+import 'package:firebase/view/user_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
@@ -123,6 +124,7 @@ class HomePage extends ConsumerWidget {
                                       vertical: 4, horizontal: 5),
                                   child: InkWell(
                                     onTap: () {
+                                      Get.to(()=>UserPage(data[index]));
                                       print(data[index].id);
                                     },
                                     child: CircleAvatar(
